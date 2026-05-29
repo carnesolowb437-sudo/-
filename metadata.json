@@ -1,0 +1,6 @@
+{
+  "name": "Urban Sanctuary",
+  "description": "专致于高品质抹茶及日系手作甜点的精致下午茶体验，提供堂食预约、工坊预约、礼盒选购及会员积分尊享。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

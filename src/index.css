@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "./styles/fonts.css";
+@import "./styles/theme.css";
+
+@theme {
+  --font-serif: "Instrument Serif", "Noto Serif SC", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-matcha-dark: #2F5233;
+  --color-matcha-deep: #1E3821;
+  --color-matcha-fresh: #5E8B65;
+  --color-matcha-light: #A3C68C;
+  --color-matcha-accent: #C5A880;
+  --color-matcha-gold: #D4B483;
+  --color-matcha-cream: #FCFAF7;
+  --color-matcha-sand: #FAF5EF;
+  --color-matcha-slate: #2C312E;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-matcha-cream);
+    color: var(--color-matcha-slate);
+    font-family: var(--font-sans);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-matcha-cream);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-matcha-accent);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-matcha-fresh);
+  }
+}
+
+/* Elegant custom layouts */
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Hide default cursor on devices that support hovering & have a fine pointer (desktops) */
+@media (hover: hover) and (pointer: fine) {
+  body, 
+  a, 
+  button, 
+  input, 
+  select, 
+  textarea, 
+  [role="button"], 
+  .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
+
