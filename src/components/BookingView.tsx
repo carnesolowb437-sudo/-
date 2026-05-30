@@ -4,6 +4,27 @@ import { Booking } from '../types';
 import { COURSES } from '../data';
 import { motion, AnimatePresence } from 'motion/react';
 
+const COURSE_SLATS_INFO: Record<string, string[]> = {
+  'c-tea': [
+    "🍵 上等石磨 · 经典手作击拂",
+    "⏳ 暖茶雅席 · 约150分钟体验",
+    "🌸 甜品风味 · 特选主厨佐茶菓子",
+    "🎁 伴手好礼 · 专属礼包带回"
+  ],
+  'c-baking': [
+    "🍰 匠心打制 · 21层极薄千层法",
+    "⏳ 修艺时段 · 约180分钟慢作",
+    "🧑‍🍳 奶油抹匀 · 慕斯抹刀艺术",
+    "🎁 手工赠礼 · 专属高级匠人围裙"
+  ],
+  'c-canele': [
+    "🍯 熟化法宝 · 24h低温慢熟面糊",
+    "⏳ 烘焙修行 · 约140分钟技巧",
+    "🔥 极速出炉 · 亲炙6枚装经典茶礼",
+    "☕ 尊享歇息 · 西湖桂雨下午茶会"
+  ]
+};
+
 interface BookingViewProps {
   onAddBooking: (booking: Booking) => void;
   userPhone: string;
@@ -20,6 +41,8 @@ export default function BookingView({ onAddBooking, userPhone, userName }: Booki
     guestsCount: 2,
     notes: '',
   });
+
+  const [hoveredCourseId, setHoveredCourseId] = useState<string | null>(null);
 
   const [bookingResult, setBookingResult] = useState<Booking | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
@@ -94,10 +117,15 @@ export default function BookingView({ onAddBooking, userPhone, userName }: Booki
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {COURSES.map((course) => {
             const isSelected = formData.courseId === course.id;
+            const isFlipped = isSelected || hoveredCourseId === course.id;
+            const slats = COURSE_SLATS_INFO[course.id] || [];
+
             return (
               <motion.div 
                 key={course.id}
                 onClick={() => setFormData(prev => ({ ...prev, courseId: course.id }))}
+                onMouseEnter={() => setHoveredCourseId(course.id)}
+                onMouseLeave={() => setHoveredCourseId(null)}
                 initial={{ scale: 1, y: 0 }}
                 animate={{ 
                   scale: isSelected ? 1.05 : 1, 
@@ -122,18 +150,85 @@ export default function BookingView({ onAddBooking, userPhone, userName }: Booki
                 style={{ zIndex: isSelected ? 10 : 1 }}
                 id={`course-card-${course.id}`}
               >
-                {/* Course Image */}
+                {/* Course Image / 3D Shutter Blinds */}
                 <div className="space-y-4">
-                  <div className="aspect-video w-full rounded-lg overflow-hidden relative">
-                    <img 
-                      src={course.image} 
-                      alt={course.title} 
-                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
-                    />
-                    <span className="absolute bottom-2 right-2 bg-black/60 text-white font-mono text-[9px] px-2 py-0.5 rounded tracking-widest">
-                      {course.duration}
-                    </span>
+                  <div className="aspect-video w-full rounded-lg overflow-hidden relative" style={{ perspective: '1200px' }}>
+                    {/* Venetian Shutter/Blinds Slats Container */}
+                    <div className="absolute inset-0 flex flex-col w-full h-full">
+                      {Array.from({ length: 4 }).map((_, idx) => {
+                        return (
+                          <div 
+                            key={idx}
+                            className="relative w-full h-1/4"
+                            style={{ 
+                              perspective: '1000px', 
+                              transformStyle: 'preserve-3d' 
+                            }}
+                          >
+                            <div 
+                              className="absolute inset-0 w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                              style={{
+                                transformStyle: 'preserve-3d',
+                                transform: isFlipped ? 'rotateX(180deg)' : 'rotateX(0deg)',
+                                transitionDelay: `${idx * 70}ms`
+                              }}
+                            >
+                              {/* Slatted Front Face - Image slice */}
+                              <div 
+                                className="absolute inset-0 w-full h-full overflow-hidden"
+                                style={{
+                                  backfaceVisibility: 'hidden',
+                                  WebkitBackfaceVisibility: 'hidden',
+                                }}
+                              >
+                                <img 
+                                  src={course.image} 
+                                  alt={course.title}
+                                  className="absolute w-full h-[400%] object-cover max-w-none"
+                                  style={{
+                                    top: `-${idx * 100}%`,
+                                    left: 0,
+                                  }}
+                                  referrerPolicy="no-referrer"
+                                />
+                                {idx < 3 && (
+                                  <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#1E3821]/15 mix-blend-multiply z-10" />
+                                )}
+                              </div>
+
+                              {/* Slatted Back Face - Detailed course item slide */}
+                              <div 
+                                className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#1E3821] to-[#244228] flex items-center justify-center px-2 select-none border-y border-[#C5A880]/15"
+                                style={{
+                                  backfaceVisibility: 'hidden',
+                                  WebkitBackfaceVisibility: 'hidden',
+                                  transform: 'rotateX(180deg)',
+                                }}
+                              >
+                                <div className="flex items-center space-x-1.5 md:space-x-2 text-[10px] md:text-sm text-[#FAF6F0]/90 tracking-wider font-serif">
+                                  <span className="text-[#C5A880] text-[9px] font-mono font-bold opacity-80">0{idx + 1}</span>
+                                  <span className="h-1 w-1 bg-[#C5A880] rounded-full opacity-60"></span>
+                                  <span className="font-medium truncate max-w-[210px]">{slats[idx]}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Floating Duration fades out cleanly during flip */}
+                    <AnimatePresence>
+                      {!isFlipped && (
+                        <motion.span 
+                          initial={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.9 }}
+                          className="absolute bottom-2 right-2 bg-black/60 text-white font-mono text-[9px] px-2 py-0.5 rounded tracking-widest z-20 pointer-events-none"
+                        >
+                          {course.duration}
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
                   </div>
 
                   <div className="space-y-1.5 text-left">

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Search, SlidersHorizontal, ArrowUpDown, Plus, ShoppingBag, Eye, Heart, X, Check, Star } from 'lucide-react';
 import { Product } from '../types';
 import { INITIAL_PRODUCTS } from '../data';
@@ -17,6 +17,17 @@ export default function ProductsView({ onAddToCart, cartCount }: ProductsViewPro
   const [likedItems, setLikedItems] = useState<Record<string, boolean>>({});
   const [addedAnimationId, setAddedAnimationId] = useState<string | null>(null);
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(err => {
+        console.warn("Autoplay muted video was delayed or prevented:", err);
+      });
+    }
+  }, []);
 
   const handleOpenDetail = (product: Product) => {
     setSelectedProduct(product);
@@ -80,7 +91,33 @@ export default function ProductsView({ onAddToCart, cartCount }: ProductsViewPro
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 text-left space-y-12 shrink-0" id="products-view">
+    <div className="relative min-h-screen bg-transparent" id="products-view-wrapper">
+      {/* Background Video Layer with Atmospheric Wash */}
+      <div 
+        className="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.85]"
+        id="products-video-background-layer"
+      >
+        <video
+          ref={videoRef}
+          src="https://ik.imagekit.io/quuete4si/%E5%BE%AE%E4%BF%A1%E8%A7%86%E9%A2%912026-05-30_162547_677.mp4"
+          className="w-full h-full object-cover filter contrast-[1.03] brightness-[0.99] saturate-[1.01]"
+          muted={true}
+          playsInline={true}
+          autoPlay={true}
+          loop={true}
+        />
+        {/* Complex organic creamy paper gradient wash to integrate foreground and video */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-[#FCFAF7]/5 via-[#FAF6F0]/25 to-[#FCFAF7]/70" 
+          id="products-video-gradient-overlay"
+        />
+        
+        {/* Soft floating luminous tea-zen light orbs to unify the layout elements */}
+        <div className="absolute top-1/4 left-10 w-80 h-80 rounded-full bg-[#2F5233]/5 blur-[130px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-10 w-96 h-96 rounded-full bg-[#C5A880]/6 blur-[160px] pointer-events-none" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-12 text-left space-y-12 shrink-0" id="products-view">
       
       {/* 1. HEADER SECTION */}
       <div className="text-center md:text-left space-y-3 mb-8">
@@ -552,6 +589,7 @@ export default function ProductsView({ onAddToCart, cartCount }: ProductsViewPro
         )}
       </AnimatePresence>
 
+    </div>
     </div>
   );
 }

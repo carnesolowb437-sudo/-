@@ -14,7 +14,7 @@ import {
   Database
 } from 'lucide-react';
 import { INITIAL_PRODUCTS, COURSES } from '../data';
-import genmaichaLatteFoamImg from '../assets/images/genmaicha_latte_foam_1779240951334.png';
+import stackedMatchaCakesImg from '../assets/images/stacked_matcha_cakes_1780128957381.png';
 
 interface HomeViewProps {
   setCurrentPage: (page: string) => void;
@@ -40,7 +40,17 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
 
   // Ref and scroll state for local scroll parallax
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [scrollOffset, setScrollOffset] = useState<number>(0);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(err => {
+        console.warn("Autoplay muted video was delayed or prevented:", err);
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,20 +145,21 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
     >
       {/* Background Video Layer with Atmospheric Wash */}
       <div 
-        className="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.55]"
+        className="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.88]"
         id="video-background-layer"
       >
         <video
-          src="https://ik.imagekit.io/quuete4si/nnn.mp4"
-          className="w-full h-full object-cover filter contrast-[1.05] brightness-[1.02]"
-          muted
-          playsInline
-          autoPlay
-          loop
+          ref={videoRef}
+          src="https://ik.imagekit.io/quuete4si/%E5%BE%AE%E4%BF%A1%E8%A7%86%E9%A2%912026-05-30_160730_791.mp4"
+          className="w-full h-full object-cover filter contrast-[1.04] brightness-[1.01]"
+          muted={true}
+          playsInline={true}
+          autoPlay={true}
+          loop={true}
         />
-        {/* Complex organic creamy paper gradient wash to integrate foreground and video */}
+        {/* Complex organic creamy paper gradient wash to integrate foreground and video, now more transparent so the video is clearly visible */}
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-[#FCFAF7]/10 via-[#FAF6F0]/55 to-[#FCFAF7]/80" 
+          className="absolute inset-0 bg-gradient-to-b from-[#FCFAF7]/5 via-[#FAF6F0]/22 to-[#FCFAF7]/65" 
           id="video-gradient-overlay"
         />
         
@@ -165,7 +176,7 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Hero Left Content */}
-          <div className="lg:col-span-6 space-y-6 text-left relative z-10">
+          <div className="lg:col-span-5 space-y-6 text-left relative z-10">
             <motion.div 
               variants={itemVariants} 
               className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#2F5233]/8 text-[#2F5233] text-xs font-bold tracking-widest uppercase border border-[#2F5233]/15 backdrop-blur-md"
@@ -177,11 +188,11 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
  
             <motion.h1 
               variants={itemVariants} 
-              className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-[#1E3821] tracking-wider leading-snug drop-shadow-sm flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 border-l-4 border-[#2F5233]/70 pl-4.5 py-1"
+              className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-[#1E3821] tracking-wider leading-snug drop-shadow-sm flex flex-col items-start gap-2 border-l-4 border-[#2F5233]/70 pl-4.5 py-1"
               id="hero-main-title"
             >
               <span className="block shrink-0">一抹翠意，</span>
-              <span className="block text-2xl sm:text-3xl md:text-4xl font-semibold text-[#9E7E52] relative">
+              <span className="block text-2xl sm:text-3xl md:text-4xl font-semibold text-[#9E7E52] relative mt-1">
                 心手相传的静谧修持
                 <span className="absolute left-0 -bottom-1 w-full h-[3px] bg-[#9E7E52]/30 rounded-full" />
               </span>
@@ -225,43 +236,34 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
           </div>
  
           {/* Hero Right Graphic with layered images & crafted cinnabar seal */}
-          <div className="lg:col-span-6 relative mt-8 lg:mt-0" id="hero-graphic-panel">
+          <div className="lg:col-span-7 relative mt-8 lg:mt-0 xl:pl-6" id="hero-graphic-panel">
+            {/* Ambient gold & green tea halo to merge the image edges with the video background */}
+            <div className="absolute -inset-12 bg-gradient-to-br from-[#2F5233]/30 via-[#C5A880]/18 to-transparent rounded-[50px] blur-[80px] z-0 opacity-90 pointer-events-none"></div>
+            <div className="absolute -inset-4 bg-[#FAF6F0]/25 rounded-3xl blur-[24px] z-0 pointer-events-none mix-blend-screen"></div>
             <div className="absolute inset-0 border border-[#C5A880]/30 rounded-3xl transform translate-x-4 translate-y-4 z-0"></div>
             
             <motion.div 
               variants={itemVariants} 
-              className="relative z-10 aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-white border border-[#2F5233]/10 flex items-center justify-center p-2.5"
+              className="relative z-10 aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-[#2F5233]/12 backdrop-blur-[2px] lg:scale-105 hover:scale-[1.07] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
               id="hero-main-image-wrapper"
             >
               <img 
-                src={genmaichaLatteFoamImg} 
-                alt="Artisan Creamy Matcha Latte Pour" 
-                className="w-full h-full object-cover rounded-2xl contrast-[1.03]"
+                src={stackedMatchaCakesImg} 
+                alt="Artisan Double Stacked Matcha Cakes" 
+                className="w-full h-full object-cover rounded-3xl contrast-[1.01] brightness-[0.97] saturate-[1.02] opacity-[0.98] transition-transform duration-700"
                 referrerPolicy="no-referrer"
               />
               
+              {/* Harmonizing overlays: cream to deep tea-green vignette wash matching background atmosphere */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#1E3821]/30 via-transparent to-[#FAF6F0]/25 mix-blend-multiply pointer-events-none rounded-3xl" />
+              <div className="absolute inset-0 bg-[#2F5233]/8 mix-blend-color pointer-events-none rounded-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#1E3821]/20 mix-blend-darken pointer-events-none rounded-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-tl from-[#C5A880]/15 via-transparent to-transparent mix-blend-overlay pointer-events-none rounded-3xl" />
+              
               {/* Floating aesthetic labels */}
               <div className="absolute bottom-6 left-6 bg-[#1E3821]/85 backdrop-blur-md text-[#FCFAF7] p-4.5 rounded-xl text-left border border-white/15 shadow-xl">
-                <span className="text-[10px] text-[#C5A880] tracking-widest uppercase font-mono font-bold">ICE-WHISKED FUSION</span>
-                <p className="font-serif font-bold text-sm mt-0.5">手打筅击 极细茶乳融</p>
-              </div>
- 
-              <div className="absolute -top-4 -right-4 bg-[#C5A880] text-white py-2 px-4 rounded-xl shadow-lg flex items-center space-x-1.5 text-xs font-serif border border-[#FCFAF7]/20">
-                <Leaf className="w-3.5 h-3.5 animate-spin-slow" />
-                <span>100%丸久小山园直供</span>
-              </div>
-
-              {/* Handcrafted Red Cinnabar Seal - Signifying heritage, master recipe, and authenticity */}
-              <div 
-                className="absolute right-6 bottom-6 bg-[#C12C1E] text-white p-2 w-[44px] rounded-sm shadow-xl flex flex-col items-center justify-center font-serif text-[11px] leading-tight tracking-[0.15em] select-none scale-105 transform translate-x-1.5 translate-y-1.5 rotate-[-3deg] z-20 font-bold border border-white/20 select-none cursor-default hover:scale-110 active:scale-95 transition-transform"
-                title="翠心守作印"
-              >
-                <div className="border border-white/30 px-1 py-1 flex flex-col items-center justify-center font-serif">
-                  <span className="leading-none text-center">翠</span>
-                  <span className="leading-none text-center mt-0.5">心</span>
-                  <span className="leading-none text-center mt-0.5">手</span>
-                  <span className="leading-none text-center mt-0.5">作</span>
-                </div>
+                <span className="text-[10px] text-[#C5A880] tracking-widest uppercase font-mono font-bold">MATCHA KASANE</span>
+                <p className="font-serif font-bold text-sm mt-0.5">手作叠翠 浓醇重治修持</p>
               </div>
             </motion.div>
           </div>
