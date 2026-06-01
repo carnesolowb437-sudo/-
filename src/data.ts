@@ -108,7 +108,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: '稻麦焦香玄米茶，与法国奶油干酪的芝士厚舞合奏',
     price: 46,
     category: 'classic',
-    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=800&q=80',
     tags: ['谷物烘焙香', '芝士浓郁', '坚果颗粒'],
     rating: 4.8,
     reviewsCount: 68,

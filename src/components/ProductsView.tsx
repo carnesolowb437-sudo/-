@@ -23,6 +23,7 @@ export default function ProductsView({ onAddToCart, cartCount }: ProductsViewPro
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = true;
+      videoRef.current.playbackRate = 0.45; // Slow down the playback rate (45% of original speed)
       videoRef.current.play().catch(err => {
         console.warn("Autoplay muted video was delayed or prevented:", err);
       });
@@ -99,7 +100,7 @@ export default function ProductsView({ onAddToCart, cartCount }: ProductsViewPro
       >
         <video
           ref={videoRef}
-          src="https://ik.imagekit.io/quuete4si/%E5%BE%AE%E4%BF%A1%E8%A7%86%E9%A2%912026-05-30_162547_677.mp4"
+          src="https://ik.imagekit.io/quuete4si/%E5%BE%AE%E4%BF%A1%E8%A7%86%E9%A2%912026-06-01_082721_764.mp4"
           className="w-full h-full object-cover filter contrast-[1.03] brightness-[0.99] saturate-[1.01]"
           muted={true}
           playsInline={true}
@@ -240,7 +241,7 @@ export default function ProductsView({ onAddToCart, cartCount }: ProductsViewPro
           <motion.div 
             layout 
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-            id="product-bento-grid"
+            id="product-grid"
           >
             <AnimatePresence mode="popLayout">
               {processedProducts.length > 0 ? (
@@ -273,11 +274,10 @@ export default function ProductsView({ onAddToCart, cartCount }: ProductsViewPro
                         <img 
                           src={product.image} 
                           alt={product.name} 
-                          className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-all duration-700 select-none"
+                          className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-all duration-700 select-none animate-fade-in"
                           referrerPolicy="no-referrer"
                         />
                         
-                        {/* Overlay Badges */}
                         <div className="absolute top-3 left-3 flex flex-col space-y-1.5">
                           {product.isNew && (
                             <span className="bg-[#C5A880] text-[#1E3821] text-[9px] font-bold tracking-widest uppercase px-2 py-1 rounded">
@@ -337,7 +337,7 @@ export default function ProductsView({ onAddToCart, cartCount }: ProductsViewPro
                           {/* Quick Purchase button */}
                           <button
                             onClick={(e) => handleAddToCart(product, e)}
-                            className={`p-2 rounded-full transition-all duration-300 ${
+                            className={`p-2 transition-all duration-300 ${
                               animateAdded 
                                 ? 'bg-emerald-600 text-white' 
                                 : 'bg-[#2F5233] hover:bg-[#1E3821] text-white shadow-md hover:shadow-lg'

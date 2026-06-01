@@ -46,6 +46,7 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = true;
+      videoRef.current.playbackRate = 0.45; // Slow down the playback rate (45% of original speed)
       videoRef.current.play().catch(err => {
         console.warn("Autoplay muted video was delayed or prevented:", err);
       });
@@ -192,9 +193,9 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
               id="hero-main-title"
             >
               <span className="block shrink-0">一抹翠意，</span>
-              <span className="block text-2xl sm:text-3xl md:text-4xl font-semibold text-[#9E7E52] relative mt-1">
+              <span className="block text-2xl sm:text-3xl md:text-4xl font-bold text-[#7A5524] relative mt-1">
                 心手相传的静谧修持
-                <span className="absolute left-0 -bottom-1 w-full h-[3px] bg-[#9E7E52]/30 rounded-full" />
+                <span className="absolute left-0 -bottom-1 w-full h-[3px] bg-[#7A5524]/40 rounded-full" />
               </span>
             </motion.h1>
  
