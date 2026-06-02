@@ -141,29 +141,30 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="relative bg-transparent min-h-screen text-left"
+      className="relative bg-[#EDF2EB] min-h-screen text-left transition-colors duration-500"
       id="home-view"
     >
-      {/* Background Video Layer with Atmospheric Wash */}
+      {/* Background Graphic Layer with Atmospheric Wash */}
       <div 
-        className="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.88]"
+        className="fixed inset-0 z-0 overflow-hidden pointer-events-none"
         id="video-background-layer"
       >
-        <video
-          ref={videoRef}
-          src="https://ik.imagekit.io/quuete4si/%E5%BE%AE%E4%BF%A1%E8%A7%86%E9%A2%912026-05-30_160730_791.mp4"
-          className="w-full h-full object-cover filter contrast-[1.04] brightness-[1.01]"
-          muted={true}
-          playsInline={true}
-          autoPlay={true}
-          loop={true}
-        />
-        {/* Complex organic creamy paper gradient wash to integrate foreground and video, now more transparent so the video is clearly visible */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-b from-[#FCFAF7]/5 via-[#FAF6F0]/22 to-[#FCFAF7]/65" 
-          id="video-gradient-overlay"
-        />
-        
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes slowApproachCake {
+            0% {
+              transform: scale(1.10);
+            }
+            50% {
+              transform: scale(1.24) translate(-4px, -2px);
+            }
+            100% {
+              transform: scale(1.10);
+            }
+          }
+          .slow-approach-cake {
+            animation: slowApproachCake 12s ease-in-out infinite;
+          }
+        `}} />
         {/* Soft floating luminous tea-zen light orbs */}
         <div className="absolute top-1/4 left-5 w-72 h-72 rounded-full bg-[#2F5233]/4 blur-[120px] pointer-events-none" />
         <div className="absolute bottom-1/3 right-10 w-96 h-96 rounded-full bg-[#C5A880]/5 blur-[150px] pointer-events-none" />
@@ -172,105 +173,94 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
 
       {/* Main Content Wrapper with relative stacking */}
       <div className="relative z-10 space-y-24">
-        {/* 1. HERO SECTION */}
-        <section className="relative overflow-hidden py-20 md:py-28 max-w-7xl mx-auto px-4 md:px-8" id="home-hero">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Hero Left Content */}
-          <div className="lg:col-span-5 space-y-6 text-left relative z-10">
-            <motion.div 
-              variants={itemVariants} 
-              className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#2F5233]/8 text-[#2F5233] text-xs font-bold tracking-widest uppercase border border-[#2F5233]/15 backdrop-blur-md"
-              id="hero-badge"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#C5A880] animate-pulse" />
-              <span>杭州西湖畔 · 抹茶美学空间</span>
-            </motion.div>
- 
-            <motion.h1 
-              variants={itemVariants} 
-              className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-[#1E3821] tracking-wider leading-snug drop-shadow-sm flex flex-col items-start gap-2 border-l-4 border-[#2F5233]/70 pl-4.5 py-1"
-              id="hero-main-title"
-            >
-              <span className="block shrink-0">一抹翠意，</span>
-              <span className="block text-2xl sm:text-3xl md:text-4xl font-bold text-[#7A5524] relative mt-1">
-                心手相传的静谧修持
-                <span className="absolute left-0 -bottom-1 w-full h-[3px] bg-[#7A5524]/40 rounded-full" />
-              </span>
-            </motion.h1>
- 
-            <motion.p 
-              variants={itemVariants} 
-              className="text-sm md:text-base text-[#2C312E]/80 leading-relaxed font-sans font-light max-w-lg"
-              id="hero-subtitle"
-            >
-              「Urban Sanctuary」隐居于满觉陇古翠林间。我们精研日本宇治百年石磨古法，坚持纯手工二十一层慢煎与茶筅手击。在一抹茶色余香中，为您构筑一处无尘的流心港湾。
-            </motion.p>
- 
-            {/* CTA action buttons */}
-            <motion.div 
-              variants={itemVariants} 
-              className="flex flex-wrap gap-4 pt-4"
-              id="hero-actions"
-            >
-              <button
-                onClick={() => {
-                  setCurrentPage('products');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-8 py-3.5 bg-[#2F5233] hover:bg-[#1E3821] text-white font-serif font-bold tracking-widest text-sm rounded-full transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
-                id="cta-browse-products"
-              >
-                浏览甜点系列
-              </button>
-              <button
-                onClick={() => {
-                  setCurrentPage('booking');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-8 py-3.5 border border-[#2F5233]/40 hover:border-[#2F5233] hover:bg-[#2F5233]/8 text-[#2F5233] font-serif font-bold tracking-widest text-sm rounded-full transition-all duration-300 backdrop-blur-sm"
-                id="cta-reserve-workshop"
-              >
-                预约手作工坊
-              </button>
-            </motion.div>
+        {/* 1. HERO SECTION (Centered Layout with Immersive Embedded Background Image) */}
+        <section className="relative overflow-hidden py-24 md:py-32 max-w-5xl mx-auto px-4 md:px-8 rounded-[40px] my-4" id="home-hero">
+          {/* Background image layer of the hero section */}
+          <div 
+            className="absolute inset-0 z-0 pointer-events-none select-none rounded-[40px] overflow-hidden bg-[#EDF2EB]"
+            style={{
+              maskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 18%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.2) 68%, transparent 88%)',
+              WebkitMaskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 18%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.2) 68%, transparent 88%)'
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#2F5233]/20 via-[#C5A880]/10 to-transparent blur-[60px] opacity-70" />
+            <img 
+              src={stackedMatchaCakesImg} 
+              alt="Artisan Matcha Cakes Background" 
+              className="absolute w-full h-full object-cover object-center opacity-[0.45] touch-none contrast-[1.06] brightness-[1.02] saturate-[1.12] transition-all duration-[12s] ease-in-out slow-approach-cake"
+              referrerPolicy="no-referrer"
+              style={{
+                mixBlendMode: 'multiply'
+              }}
+            />
+            {/* Subtle paper grain texture and ambient vignette overlays without hard white borders */}
+            <div className="absolute inset-0 bg-[#2F5233]/3 mix-blend-color" />
           </div>
- 
-          {/* Hero Right Graphic with layered images & crafted cinnabar seal */}
-          <div className="lg:col-span-7 relative mt-8 lg:mt-0 xl:pl-6" id="hero-graphic-panel">
-            {/* Ambient gold & green tea halo to merge the image edges with the video background */}
-            <div className="absolute -inset-12 bg-gradient-to-br from-[#2F5233]/30 via-[#C5A880]/18 to-transparent rounded-[50px] blur-[80px] z-0 opacity-90 pointer-events-none"></div>
-            <div className="absolute -inset-4 bg-[#FAF6F0]/25 rounded-3xl blur-[24px] z-0 pointer-events-none mix-blend-screen"></div>
-            <div className="absolute inset-0 border border-[#C5A880]/30 rounded-3xl transform translate-x-4 translate-y-4 z-0"></div>
+
+          <div className="flex flex-col items-center text-center space-y-10 relative z-10">
             
-            <motion.div 
-              variants={itemVariants} 
-              className="relative z-10 aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-[#2F5233]/12 backdrop-blur-[2px] lg:scale-105 hover:scale-[1.07] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              id="hero-main-image-wrapper"
-            >
-              <img 
-                src={stackedMatchaCakesImg} 
-                alt="Artisan Double Stacked Matcha Cakes" 
-                className="w-full h-full object-cover rounded-3xl contrast-[1.01] brightness-[0.97] saturate-[1.02] opacity-[0.98] transition-transform duration-700"
-                referrerPolicy="no-referrer"
-              />
-              
-              {/* Harmonizing overlays: cream to deep tea-green vignette wash matching background atmosphere */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#1E3821]/30 via-transparent to-[#FAF6F0]/25 mix-blend-multiply pointer-events-none rounded-3xl" />
-              <div className="absolute inset-0 bg-[#2F5233]/8 mix-blend-color pointer-events-none rounded-3xl" />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#1E3821]/20 mix-blend-darken pointer-events-none rounded-3xl" />
-              <div className="absolute inset-0 bg-gradient-to-tl from-[#C5A880]/15 via-transparent to-transparent mix-blend-overlay pointer-events-none rounded-3xl" />
-              
-              {/* Floating aesthetic labels */}
-              <div className="absolute bottom-6 left-6 bg-[#1E3821]/85 backdrop-blur-md text-[#FCFAF7] p-4.5 rounded-xl text-left border border-white/15 shadow-xl">
-                <span className="text-[10px] text-[#C5A880] tracking-widest uppercase font-mono font-bold">MATCHA KASANE</span>
-                <p className="font-serif font-bold text-sm mt-0.5">手作叠翠 浓醇重治修持</p>
-              </div>
-            </motion.div>
+            {/* Hero Content (Centered) */}
+            <div className="space-y-6 flex flex-col items-center relative z-10 max-w-2xl">
+              <motion.div 
+                variants={itemVariants} 
+                className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#2F5233]/8 text-[#2F5233] text-xs font-bold tracking-widest uppercase border border-[#2F5233]/15 backdrop-blur-md"
+                id="hero-badge"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#C5A880] animate-pulse" />
+                <span>杭州西湖畔 · 抹茶美学空间</span>
+              </motion.div>
+   
+              <motion.h1 
+                variants={itemVariants} 
+                className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-[#1E3821] tracking-wider leading-snug drop-shadow-sm flex flex-col items-center gap-2 text-center"
+                id="hero-main-title"
+              >
+                <span className="block shrink-0">一抹翠意，</span>
+                <span className="block text-2xl sm:text-3xl md:text-4xl font-bold text-[#7A5524] relative mt-1 px-4">
+                  心手相传的静谧修持
+                  <span className="absolute left-4 right-4 -bottom-1 h-[3px] bg-[#7A5524]/40 rounded-full" />
+                </span>
+              </motion.h1>
+   
+              <motion.p 
+                variants={itemVariants} 
+                className="text-sm md:text-base text-[#2C312E]/85 leading-relaxed font-sans font-normal max-w-xl text-center bg-white/20 backdrop-blur-[1px] py-1 px-3 rounded-xl"
+                id="hero-subtitle"
+              >
+                「Urban Sanctuary」隐居于满觉陇古翠林间。我们精研日本宇治百年石磨古法，坚持纯手工二十一层慢煎与茶筅手击。在一抹茶色余香中，为您构筑一处无尘的流心港湾。
+              </motion.p>
+   
+              {/* CTA action buttons */}
+              <motion.div 
+                variants={itemVariants} 
+                className="flex flex-wrap justify-center gap-4 pt-2"
+                id="hero-actions"
+              >
+                <button
+                  onClick={() => {
+                    setCurrentPage('products');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-8 py-3.5 bg-[#2F5233] hover:bg-[#1E3821] text-white font-serif font-bold tracking-widest text-sm rounded-full transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
+                  id="cta-browse-products"
+                >
+                  浏览甜点系列
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrentPage('booking');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-8 py-3.5 border border-[#2F5233]/40 hover:border-[#2F5233] hover:bg-[#2F5233]/8 text-[#2F5233] font-serif font-bold tracking-widest text-sm rounded-full transition-all duration-300 backdrop-blur-sm"
+                  id="cta-reserve-workshop"
+                >
+                  预约手作工坊
+                </button>
+              </motion.div>
+            </div>
+   
           </div>
- 
-        </div>
-      </section>
+        </section>
  
       {/* 2. THREE CORE VALUES */}
       <section className="bg-[#FAF5EF]/20 border-y border-[#FAF5EF]/30 backdrop-blur-[8px] py-20 rounded-3xl" id="home-philosophies">
@@ -342,14 +332,14 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
         </div>
 
         {/* 3 Featured Products in Accordion */}
-        <div className="flex flex-col md:flex-row gap-6 md:min-h-[500px]" id="featured-products-accordion">
+        <div className="flex flex-col md:flex-row gap-4 md:min-h-[340px]" id="featured-products-accordion">
           {featuredProducts.map((p) => {
             const isExpanded = p.id === expandedId;
             
             // Calculate distinct speeds for depth layered parallax effect based on scrollOffset
-            const imageY = Math.max(-30, Math.min(30, scrollOffset * -0.065));
-            const fontY = Math.max(-12, Math.min(12, scrollOffset * 0.025));
-            const bgY = Math.max(-45, Math.min(45, scrollOffset * 0.08));
+            const imageY = Math.max(-20, Math.min(20, scrollOffset * -0.04));
+            const fontY = Math.max(-8, Math.min(8, scrollOffset * 0.015));
+            const bgY = Math.max(-30, Math.min(30, scrollOffset * 0.05));
 
             return (
               <div
@@ -357,19 +347,19 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
                 onClick={() => setExpandedId(p.id)}
                 className={`rounded-2xl overflow-hidden border text-left flex flex-col justify-between cursor-pointer group relative transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   isExpanded 
-                    ? 'border-[#2F5233] shadow-lg md:shadow-xl bg-[#FCFAF7]/20 backdrop-blur-lg' 
+                    ? 'border-[#2F5233] shadow-md bg-[#FCFAF7]/20 backdrop-blur-lg' 
                     : 'border-[#2F5233]/15 shadow-sm hover:shadow-md bg-white/5 backdrop-blur-md hover:bg-[#FAF8F5]/20'
                 }`}
                 style={{
-                  flexGrow: isExpanded ? 2.5 : 0.8,
+                  flexGrow: isExpanded ? 2.2 : 0.8,
                   flexBasis: '0%',
-                  minWidth: '240px'
+                  minWidth: '220px'
                 }}
                 id={`featured-card-${p.id}`}
               >
                 {/* Layer 1 (Back): Parallax background ambient gradient orb */}
                 <div 
-                  className="absolute -top-12 -right-12 w-40 h-40 rounded-full pointer-events-none blur-3xl opacity-35 z-0"
+                  className="absolute -top-12 -right-12 w-32 h-32 rounded-full pointer-events-none blur-3xl opacity-35 z-0"
                   style={{
                     background: p.id === 'p1' ? 'radial-gradient(circle, #2F5233 0%, transparent 70%)' :
                                 p.id === 'p2' ? 'radial-gradient(circle, #C5A880 0%, transparent 70%)' :
@@ -379,13 +369,13 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
                 />
 
                 <div className="flex flex-col h-full w-full justify-between relative z-10">
-                  {/* Layer 2 (Middle): Dynamic Parallax Image Frame */}
+                  {/* Layer 2 (Middle): Dynamic Parallax Image Frame with Safe Aspect Ratio */}
                   <div className="relative aspect-video w-full overflow-hidden bg-[#FAF5EF] flex items-center justify-center shrink-0">
                     <img 
                       src={p.image} 
                       alt={p.name} 
-                      className={`w-full h-[120%] object-cover transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                        isExpanded ? 'scale-[1.12]' : 'scale-[1.18] group-hover:scale-[1.24]'
+                      className={`w-full h-[110%] object-cover transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                        isExpanded ? 'scale-[1.05]' : 'scale-[1.1] group-hover:scale-[1.15]'
                       }`}
                       style={{
                         transform: `translateY(${imageY}px)`
@@ -395,18 +385,18 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
                     
                     {/* Level Rating badge */}
                     <div 
-                      className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-md text-xs font-mono font-bold text-[#1E3821] flex items-center space-x-1 shadow-sm z-10 transition-transform duration-300"
+                      className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-mono font-bold text-[#1E3821] flex items-center space-x-1 shadow-sm z-10 transition-transform duration-300"
                       style={{
                         transform: `translateY(${fontY * 0.5}px)`
                       }}
                     >
-                      <Star className="w-3 h-3 text-amber-500 fill-amber-400" />
+                      <Star className="w-2.5 h-2.5 text-amber-500 fill-amber-400" />
                       <span>{p.rating}</span>
                     </div>
 
                     {p.isPopular && (
                       <span 
-                        className="absolute top-4 right-4 bg-[#C5A880] text-white text-[10px] font-bold tracking-widest px-2.5 py-1 rounded-md shadow-sm uppercase font-serif z-10 transition-transform duration-300"
+                        className="absolute top-3 right-3 bg-[#C5A880] text-white text-[9px] font-bold tracking-wider px-2 py-0.5 rounded-md shadow-sm uppercase font-serif z-10 transition-transform duration-300"
                         style={{
                           transform: `translateY(${fontY * 0.5}px)`
                         }}
@@ -419,30 +409,30 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
                   </div>
 
-                  {/* Layer 3 (Foreground): Content area with independent shifting rate */}
+                  {/* Layer 3 (Foreground): Content area with independent shifting rate (More Compact) */}
                   <div 
-                    className="p-6 flex-grow flex flex-col justify-between space-y-4 transition-transform duration-200 ease-out"
+                    className="p-4 md:p-3 flex-grow flex flex-col justify-between space-y-2.5 transition-transform duration-200 ease-out"
                     style={{
                       transform: `translateY(${fontY}px)`
                     }}
                   >
-                    <div className="space-y-3">
+                    <div className="space-y-1.5">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="font-serif font-bold text-[#1E3821] text-lg md:text-xl transition-colors duration-300">
+                          <h4 className="font-serif font-bold text-[#1E3821] text-sm md:text-base transition-colors duration-300">
                             {p.name}
                           </h4>
-                          <span className="font-serif font-black text-[#2F5233] text-lg md:text-xl shrink-0 transition-colors duration-300">
+                          <span className="font-serif font-black text-[#2F5233] text-sm md:text-base shrink-0 transition-colors duration-300">
                             ¥{p.price}
                           </span>
                         </div>
-                        <p className="text-[10px] uppercase font-mono text-[#C5A880] tracking-wider leading-none mt-1">
+                        <p className="text-[9px] uppercase font-mono text-[#C5A880] tracking-wider leading-none mt-0.5">
                           {p.englishName}
                         </p>
                       </div>
 
                       {/* Always visible base description */}
-                      <p className={`text-xs text-[#2C312E]/70 leading-relaxed font-light transition-opacity duration-500 ${
+                      <p className={`text-[11px] text-[#2C312E]/70 leading-relaxed font-light transition-opacity duration-500 ${
                         isExpanded ? 'opacity-40' : 'opacity-100'
                       }`}>
                         {p.description}
@@ -450,22 +440,22 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
 
                       {/* Expanding section leveraging CSS Grid rows for 100% smooth height animation */}
                       <div className={`grid transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                        isExpanded ? 'grid-rows-[1fr] opacity-100 mt-2' : 'grid-rows-[0fr] opacity-0 h-0 overflow-hidden'
+                        isExpanded ? 'grid-rows-[1fr] opacity-100 mt-1' : 'grid-rows-[0fr] opacity-0 h-0 overflow-hidden'
                       }`}>
-                        <div className="overflow-hidden space-y-3">
-                          <p className="text-xs text-[#2C312E]/80 leading-relaxed font-light">
+                        <div className="overflow-hidden space-y-2">
+                          <p className="text-[11px] text-[#2C312E]/80 leading-relaxed font-light">
                             {p.detailDescription || p.description}
                           </p>
 
                           {/* Extra ingredients tag lists */}
                           {p.ingredients && p.ingredients.length > 0 && (
-                            <div className="pt-3 border-t border-[#2F5233]/10 space-y-1.5">
-                              <span className="text-[9px] uppercase font-mono text-[#C5A880] tracking-wider font-bold block">
+                            <div className="pt-2 border-t border-[#2F5233]/10 space-y-1">
+                              <span className="text-[8px] uppercase font-mono text-[#C5A880] tracking-wider font-bold block">
                                 精研用料 / Ingredients
                               </span>
                               <div className="flex flex-wrap gap-1">
                                 {p.ingredients.map((ing, idx) => (
-                                  <span key={idx} className="bg-[#2F5233]/5 text-[#2F5233] text-[9px] px-2 py-0.5 rounded-full font-serif font-medium">
+                                  <span key={idx} className="bg-[#2F5233]/5 text-[#2F5233] text-[8px] px-1.5 py-0.5 rounded-full font-serif font-medium">
                                     {ing}
                                   </span>
                                 ))}
@@ -476,11 +466,11 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
                       </div>
 
                       {/* Category and static tags */}
-                      <div className="flex flex-wrap gap-1 pt-1">
+                      <div className="flex flex-wrap gap-1 pt-0.5">
                         {p.tags.slice(0, isExpanded ? 4 : 2).map((t, idx) => (
                           <span 
                             key={idx} 
-                            className={`text-[9px] px-1.5 py-0.5 rounded-md font-medium transition-colors duration-300 ${
+                            className={`text-[8px] px-1 py-0.5 rounded-md font-medium transition-colors duration-300 ${
                               isExpanded 
                                 ? 'bg-[#2F5233]/15 text-[#2F5233]' 
                                 : 'bg-[#2F5233]/5 text-[#2F5233]'
@@ -493,20 +483,20 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
                     </div>
 
                     {/* Footer Status & Actions */}
-                    <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
+                    <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
                       {!isExpanded ? (
                         <>
-                          <span className="text-[10px] text-[#2C312E]/40 font-mono">
+                          <span className="text-[9px] text-[#2C312E]/40 font-mono">
                             点击展开品鉴 ➔
                           </span>
-                          <span className="text-[10px] md:text-xs font-semibold text-[#2F5233] group-hover:text-[#C5A880] transition-colors font-serif">
+                          <span className="text-[9px] md:text-[10px] font-semibold text-[#2F5233] group-hover:text-[#C5A880] transition-colors font-serif">
                             查看微苦风味
                           </span>
                         </>
                       ) : (
                         <>
-                          <span className="text-[10px] text-[#C5A880] font-mono tracking-wider font-semibold animate-pulse">
-                            ✨ 首发特供 · 纯手工石磨
+                          <span className="text-[9px] text-[#C5A880] font-mono tracking-wider font-semibold animate-pulse">
+                            ✨ 首发特供 · 石磨
                           </span>
                           <button
                             onClick={(e) => {
@@ -514,7 +504,7 @@ export default function HomeView({ setCurrentPage }: HomeViewProps) {
                               setCurrentPage('products');
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
-                            className="bg-[#2F5233] text-white hover:bg-[#1E3821] text-[10px] md:text-xs font-serif font-bold tracking-widest px-3.5 py-1.5 rounded-full shadow-md transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
+                            className="bg-[#2F5233] text-white hover:bg-[#1E3821] text-[9px] md:text-[10px] font-serif font-bold tracking-widest px-2.5 py-1 rounded-full shadow-md transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
                           >
                             挑选并预约 ➔
                           </button>

@@ -93,29 +93,29 @@ export default function ProductsView({ onAddToCart, cartCount }: ProductsViewPro
 
   return (
     <div className="relative min-h-screen bg-transparent" id="products-view-wrapper">
-      {/* Background Video Layer with Atmospheric Wash */}
+      {/* Background Video Layer with Enhanced Clarity */}
       <div 
-        className="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.85]"
+        className="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.95]"
         id="products-video-background-layer"
       >
         <video
           ref={videoRef}
           src="https://ik.imagekit.io/quuete4si/%E5%BE%AE%E4%BF%A1%E8%A7%86%E9%A2%912026-06-01_082721_764.mp4"
-          className="w-full h-full object-cover filter contrast-[1.03] brightness-[0.99] saturate-[1.01]"
+          className="w-full h-full object-cover filter contrast-[1.08] brightness-[1.01] saturate-[1.05]"
           muted={true}
           playsInline={true}
           autoPlay={true}
           loop={true}
         />
-        {/* Complex organic creamy paper gradient wash to integrate foreground and video */}
+        {/* Slightly reduced gradient wash for higher layout background clarity */}
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-[#FCFAF7]/5 via-[#FAF6F0]/25 to-[#FCFAF7]/70" 
+          className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FAF6F0]/12 to-[#FCFAF7]/45" 
           id="products-video-gradient-overlay"
         />
         
         {/* Soft floating luminous tea-zen light orbs to unify the layout elements */}
-        <div className="absolute top-1/4 left-10 w-80 h-80 rounded-full bg-[#2F5233]/5 blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-10 w-96 h-96 rounded-full bg-[#C5A880]/6 blur-[160px] pointer-events-none" />
+        <div className="absolute top-1/4 left-10 w-80 h-80 rounded-full bg-[#2F5233]/4 blur-[110px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-10 w-96 h-96 rounded-full bg-[#C5A880]/5 blur-[140px] pointer-events-none" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-12 text-left space-y-12 shrink-0" id="products-view">

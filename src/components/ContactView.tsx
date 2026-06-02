@@ -27,7 +27,37 @@ export default function ContactView() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 text-left space-y-12 shrink-0 animate-fade-in" id="contact-view">
+    <div className="w-full bg-[#F3F7F4]/30 backdrop-blur-md min-h-screen relative overflow-hidden" id="contact-outer-wrapper">
+      {/* Subtle light-green dot grid pattern decoration */}
+      <style>{`
+        @keyframes dynamicDotsContact {
+          0% {
+            background-size: 24px 24px;
+            opacity: 0.12;
+          }
+          50% {
+            background-size: 34px 34px;
+            opacity: 0.22;
+          }
+          100% {
+            background-size: 24px 24px;
+            opacity: 0.12;
+          }
+        }
+        .anim-dynamic-dots-contact {
+          animation: dynamicDotsContact 10s ease-in-out infinite;
+        }
+      `}</style>
+      <div 
+        className="absolute inset-0 pointer-events-none z-0 anim-dynamic-dots-contact" 
+        style={{
+          backgroundImage: 'radial-gradient(#2F5233 1.5px, transparent 1.5px)',
+          backgroundSize: '28px 28px'
+        }}
+        id="contact-bg-dots"
+      />
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 text-left space-y-12 shrink-0 animate-fade-in relative z-10" id="contact-view">
       
       {/* 1. HEADER HERO SECTION */}
       <div className="text-center md:text-left space-y-3 mb-8">
@@ -230,6 +260,7 @@ export default function ContactView() {
 
       </div>
 
+      </div>
     </div>
   );
 }

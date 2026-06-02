@@ -77,7 +77,37 @@ export default function MemberView({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 text-left space-y-12 shrink-0" id="member-view">
+    <div className="w-full bg-[#F3F7F4]/30 backdrop-blur-md min-h-screen relative overflow-hidden" id="member-outer-wrapper">
+      {/* Subtle light-green dot grid pattern decoration */}
+      <style>{`
+        @keyframes dynamicDotsMember {
+          0% {
+            background-size: 24px 24px;
+            opacity: 0.12;
+          }
+          50% {
+            background-size: 34px 34px;
+            opacity: 0.22;
+          }
+          100% {
+            background-size: 24px 24px;
+            opacity: 0.12;
+          }
+        }
+        .anim-dynamic-dots-member {
+          animation: dynamicDotsMember 10s ease-in-out infinite;
+        }
+      `}</style>
+      <div 
+        className="absolute inset-0 pointer-events-none z-0 anim-dynamic-dots-member" 
+        style={{
+          backgroundImage: 'radial-gradient(#2F5233 1.5px, transparent 1.5px)',
+          backgroundSize: '28px 28px'
+        }}
+        id="member-bg-dots"
+      />
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 text-left space-y-12 shrink-0 relative z-10" id="member-view">
       
       {/* 1. HEADER SECTION */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
@@ -522,6 +552,7 @@ export default function MemberView({
         )}
       </AnimatePresence>
 
+      </div>
     </div>
   );
 }

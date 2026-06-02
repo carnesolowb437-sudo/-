@@ -95,7 +95,36 @@ export default function BookingView({ onAddBooking, userPhone, userName }: Booki
   };
 
   return (
-    <div className="w-full bg-[#F6F0EA] min-h-screen relative overflow-hidden" id="booking-outer-wrapper">
+    <div className="w-full bg-[#F3F7F4]/30 backdrop-blur-md min-h-screen relative overflow-hidden" id="booking-outer-wrapper">
+      {/* Subtle light-green dot grid pattern decoration */}
+      <style>{`
+        @keyframes dynamicDotsBooking {
+          0% {
+            background-size: 24px 24px;
+            opacity: 0.12;
+          }
+          50% {
+            background-size: 34px 34px;
+            opacity: 0.22;
+          }
+          100% {
+            background-size: 24px 24px;
+            opacity: 0.12;
+          }
+        }
+        .anim-dynamic-dots-booking {
+          animation: dynamicDotsBooking 10s ease-in-out infinite;
+        }
+      `}</style>
+      <div 
+        className="absolute inset-0 pointer-events-none z-0 anim-dynamic-dots-booking" 
+        style={{
+          backgroundImage: 'radial-gradient(#2F5233 1.5px, transparent 1.5px)',
+          backgroundSize: '28px 28px'
+        }}
+        id="booking-bg-dots"
+      />
+
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 text-left space-y-12 shrink-0 relative z-10" id="booking-view">
       
       {/* 1. HEADER SECTION */}
